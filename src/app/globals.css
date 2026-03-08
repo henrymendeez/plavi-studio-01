@@ -187,3 +187,9 @@ body::after {
     gap: 32px !important;
   }
 }
+@media (max-width: 768px) {
+  section, .section-pad {
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+  }
+}

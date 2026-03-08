@@ -262,7 +262,7 @@ const skills = [
 export function AboutPreview({ settings }: { settings: SiteSettings }) {
   return (
     <section style={{ padding: "100px 52px", background: C.creamLight }}>
-      <RevealWrapper style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "100px", alignItems: "center" }}>
+      <RevealWrapper style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "100px", alignItems: "center" }} className="grid-2col">
         <div>
           <Eyebrow>About PLAVI</Eyebrow>
           <blockquote style={{ fontFamily: "Instrument Serif, serif", fontStyle: "italic", fontSize: "clamp(24px,3vw,40px)", lineHeight: 1.35, color: C.ink, marginBottom: "32px" }}>
