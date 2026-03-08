@@ -51,7 +51,16 @@ export default async function HomePage() {
         getAllServices(),
         getAllProjects(),
       ]);
-      if (s) settings = { ...fallbackSettings, ...s, stats: s.stats ?? fallbackSettings.stats, aboutBody: s.aboutBody ?? fallbackSettings.aboutBody };
+      if (s) settings = {
+        ...fallbackSettings,
+        ...s,
+        aboutBody: s.aboutBody ?? fallbackSettings.aboutBody,
+        stats: (s.stats ?? fallbackSettings.stats).map(st => ({
+          value: st.value,
+          suffix: st.suffix ?? "",
+          label: st.label,
+        })),
+      };
       if (svc) services = svc;
       if (proj) projects = proj;
     } catch (e) {
