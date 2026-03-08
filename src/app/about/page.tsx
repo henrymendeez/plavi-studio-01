@@ -54,20 +54,22 @@ type SettingsShape = {
   stats: { value: string; suffix: string; label: string }[];
 };
 
-let settings: SettingsShape = fallbackSettings;
-if (process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) {
-  try {
-    const s = await getSiteSettings();
-    if (s) settings = {
-      aboutBody: s.aboutBody ?? fallbackSettings.aboutBody,
-      stats: (s.stats ?? fallbackSettings.stats).map(st => ({
-        value: st.value,
-        suffix: st.suffix ?? "",
-        label: st.label,
-      })),
-    };
-  } catch {}
-}
+export default async function AboutPage() {
+  let settings: SettingsShape = fallbackSettings;
+
+  if (process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) {
+    try {
+      const s = await getSiteSettings();
+      if (s) settings = {
+        aboutBody: s.aboutBody ?? fallbackSettings.aboutBody,
+        stats: (s.stats ?? fallbackSettings.stats).map(st => ({
+          value: st.value,
+          suffix: st.suffix ?? "",
+          label: st.label,
+        })),
+      };
+    } catch {}
+  }
 
   return (
     <>
@@ -85,7 +87,7 @@ if (process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) {
 
       {/* Statement + Skills */}
       <section style={{ padding: "80px 52px" }}>
-        <RevealWrapper style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "100px", alignItems: "center" }}>
+        <RevealWrapper style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "100px", alignItems: "center" }} className="grid-2col">
           <div>
             <Eyebrow>About</Eyebrow>
             <blockquote style={{ fontFamily: "Instrument Serif, serif", fontStyle: "italic", fontSize: "clamp(28px,3.5vw,46px)", lineHeight: 1.3, color: C.ink, marginBottom: "32px" }}>
@@ -116,7 +118,7 @@ if (process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) {
       </section>
 
       {/* Stats */}
-      <RevealWrapper style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", borderTop: `1px solid ${C.border}`, borderBottom: `1px solid ${C.border}` }}>
+      <RevealWrapper className="grid-4col" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", borderTop: `1px solid ${C.border}`, borderBottom: `1px solid ${C.border}` }}>
         {settings.stats?.map((s, i) => (
           <div key={i} style={{ padding: "52px 44px", borderRight: i < 3 ? `1px solid ${C.border}` : "none" }}>
             <div style={{ fontSize: "54px", fontWeight: 800, letterSpacing: "-0.03em", color: C.ink, lineHeight: 1 }}>
@@ -135,7 +137,7 @@ if (process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) {
             A <em style={{ fontFamily: "Instrument Serif, serif", fontStyle: "italic", fontWeight: 400 }}>structured</em> process.
           </h2>
         </RevealWrapper>
-        <RevealWrapper delay={80} style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: "2px" }}>
+        <RevealWrapper delay={80} className="grid-4col" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: "2px" }}>
           {steps.map((p) => (
             <div key={p.step} style={{ background: C.white, padding: "40px 36px" }}>
               <div style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", color: C.orange, marginBottom: "18px" }}>{p.step}</div>
@@ -154,7 +156,7 @@ if (process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) {
             The <em style={{ fontFamily: "Instrument Serif, serif", fontStyle: "italic", fontWeight: 400 }}>principles</em> we work by.
           </h2>
         </RevealWrapper>
-        <RevealWrapper delay={80} style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "2px" }}>
+        <RevealWrapper delay={80} className="grid-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "2px" }}>
           {values.map((v) => (
             <div key={v.title} style={{ background: C.white, padding: "44px", display: "flex", gap: "24px", alignItems: "flex-start" }}>
               <div style={{ width: "48px", height: "48px", borderRadius: "12px", background: C.orangeLight, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "24px", flexShrink: 0 }}>
@@ -170,7 +172,7 @@ if (process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) {
       </section>
 
       {/* CTA */}
-      <div style={{ background: C.ink, padding: "100px 52px", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "60px" }}>
+      <div className="cta-band" style={{ background: C.ink, padding: "100px 52px", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "60px" }}>
         <div>
           <h2 style={{ fontSize: "clamp(36px,4.5vw,60px)", fontWeight: 800, letterSpacing: "-0.03em", lineHeight: 1.08, color: "#EAE5DC" }}>
             Working with us<br />
